@@ -1,0 +1,6 @@
+C:\Users\afshin\Dropbox\babak&afshin\MVCTest\MVCTest\obj\x86\Release\MVC.csprojResolveAssemblyReference.cache
+C:\Users\afshin\Dropbox\babak&afshin\MVCTest\MVCTest\obj\x86\Release\MVC.Form1.resources
+C:\Users\afshin\Dropbox\babak&afshin\MVCTest\MVCTest\obj\x86\Release\MVCTest.Properties.Resources.resources
+C:\Users\afshin\Dropbox\babak&afshin\MVCTest\MVCTest\obj\x86\Release\MVC.csproj.GenerateResource.Cache
+C:\Users\afshin\Dropbox\babak&afshin\MVCTest\MVCTest\obj\x86\Release\MVCTest.exe
+C:\Users\afshin\Dropbox\babak&afshin\MVCTest\MVCTest\obj\x86\Release\MVCTest.pdb

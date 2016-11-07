@@ -1,0 +1,9 @@
+C:\Users\afshin\Dropbox\FZG\PlotterMVC\PlotterMVC\bin\Debug\MVCTest.exe
+C:\Users\afshin\Dropbox\FZG\PlotterMVC\PlotterMVC\bin\Debug\MVCTest.pdb
+C:\Users\afshin\Dropbox\FZG\PlotterMVC\PlotterMVC\obj\x86\Debug\PlotterMVC.csprojResolveAssemblyReference.cache
+C:\Users\afshin\Dropbox\FZG\PlotterMVC\PlotterMVC\obj\x86\Debug\MVCTest.Form1.resources
+C:\Users\afshin\Dropbox\FZG\PlotterMVC\PlotterMVC\obj\x86\Debug\MVCTest.Properties.Resources.resources
+C:\Users\afshin\Dropbox\FZG\PlotterMVC\PlotterMVC\obj\x86\Debug\MVCTest.View.LabelSettingForm.resources
+C:\Users\afshin\Dropbox\FZG\PlotterMVC\PlotterMVC\obj\x86\Debug\PlotterMVC.csproj.GenerateResource.Cache
+C:\Users\afshin\Dropbox\FZG\PlotterMVC\PlotterMVC\obj\x86\Debug\MVCTest.exe
+C:\Users\afshin\Dropbox\FZG\PlotterMVC\PlotterMVC\obj\x86\Debug\MVCTest.pdb

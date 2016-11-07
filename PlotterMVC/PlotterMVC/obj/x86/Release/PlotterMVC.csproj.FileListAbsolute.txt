@@ -1,0 +1,2 @@
+C:\Users\afshin\Dropbox\FZG\PlotterMVC\MVCTest\obj\x86\Release\MVCTest.exe
+C:\Users\afshin\Dropbox\FZG\PlotterMVC\MVCTest\obj\x86\Release\MVCTest.pdb

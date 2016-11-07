@@ -1,0 +1,24 @@
+
+** 15) add extra graphs
+** 16) read number of points
+
+** 1) If I open a file it starts at the directory C:. The next time I open a file, it again starts at C:.
+		Is it possible to save the last directory and when I open another File, it starts at this one?
+** 2) When saving a chart, it would be good to have a standard filename like: gear1_maxYSISO.png or Gear1_Meshing2_BendingMoment.
+** 3) Is it possible to get a better quality of the png or do you know how to generate vector graphics?
+** 4) I explained the scaling of the tooth width wrong, sorry. I attached the right one in the excel-sheet.
+** 5) Can you cut the x-axis at the end of the gear, so in this case it stops at 20mm.
+** 6) It should be possible to disable the plotting of different contact lines. So far all 3 contact lines will be plotted.
+** 7) Can you specify the axes? Like width in mm and stress in N/mm^2 
+** 9) read the width from xml
+** 10) save the last button click and refresh the change of eingriff automatically
+** 8) Connect the dots to a line (Do for GNUPlot);
+** 11) Improve GNUPlot
+	-- Make it work for different number of series (Done!)
+	-- Add legends (Done!)
+	-- Add Title (Done!)
+	-- Add Axis Labels (Done!)
+** 13) (0.5 * width ) / 18 (number of points)
+** 14) check it straight from GNUplot ... there might be an auto adjust in gnuplot
+** 12) change the name of the axis and legends within a textbox
+
