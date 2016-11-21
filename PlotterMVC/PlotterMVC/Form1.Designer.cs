@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,7 +42,7 @@
             this.labelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.drawToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Graph_2D = new System.Windows.Forms.ToolStripMenuItem();
-            this.dGraphToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.Graph_3D = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.instructionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,7 +93,7 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(148, 30);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -103,7 +103,7 @@
             this.gNUPlotToolStripMenuItem,
             this.saveChartToolStripMenuItem});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(148, 30);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
             this.exportToolStripMenuItem.Text = "Export";
             // 
             // gNUPlotToolStripMenuItem
@@ -126,7 +126,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(148, 30);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -142,7 +142,7 @@
             // 
             this.labelsToolStripMenuItem.Enabled = false;
             this.labelsToolStripMenuItem.Name = "labelsToolStripMenuItem";
-            this.labelsToolStripMenuItem.Size = new System.Drawing.Size(146, 30);
+            this.labelsToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
             this.labelsToolStripMenuItem.Text = "Labels";
             this.labelsToolStripMenuItem.Click += new System.EventHandler(this.labelsToolStripMenuItem_Click);
             // 
@@ -150,7 +150,7 @@
             // 
             this.drawToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Graph_2D,
-            this.dGraphToolStripMenuItem1});
+            this.Graph_3D});
             this.drawToolStripMenuItem.Name = "drawToolStripMenuItem";
             this.drawToolStripMenuItem.Size = new System.Drawing.Size(65, 29);
             this.drawToolStripMenuItem.Text = "Draw";
@@ -159,16 +159,17 @@
             // 
             this.Graph_2D.Enabled = false;
             this.Graph_2D.Name = "Graph_2D";
-            this.Graph_2D.Size = new System.Drawing.Size(173, 30);
+            this.Graph_2D.Size = new System.Drawing.Size(211, 30);
             this.Graph_2D.Text = "2D Graph";
             this.Graph_2D.Click += new System.EventHandler(this.Graph_2D_Click);
             // 
-            // dGraphToolStripMenuItem1
+            // Graph_3D
             // 
-            this.dGraphToolStripMenuItem1.Enabled = false;
-            this.dGraphToolStripMenuItem1.Name = "dGraphToolStripMenuItem1";
-            this.dGraphToolStripMenuItem1.Size = new System.Drawing.Size(173, 30);
-            this.dGraphToolStripMenuItem1.Text = "3D Graph";
+            this.Graph_3D.Enabled = false;
+            this.Graph_3D.Name = "Graph_3D";
+            this.Graph_3D.Size = new System.Drawing.Size(211, 30);
+            this.Graph_3D.Text = "3D Graph";
+            this.Graph_3D.Click += new System.EventHandler(this.Graph_3D_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -182,13 +183,13 @@
             // instructionsToolStripMenuItem
             // 
             this.instructionsToolStripMenuItem.Name = "instructionsToolStripMenuItem";
-            this.instructionsToolStripMenuItem.Size = new System.Drawing.Size(189, 30);
+            this.instructionsToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
             this.instructionsToolStripMenuItem.Text = "Instructions";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(189, 30);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -280,11 +281,11 @@
             // 
             // chart1
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
-            legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(415, 46);
             this.chart1.Name = "chart1";
             this.chart1.Size = new System.Drawing.Size(640, 480);
@@ -389,7 +390,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripMenuItem drawToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem Graph_2D;
-        private System.Windows.Forms.ToolStripMenuItem dGraphToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem Graph_3D;
         private System.Windows.Forms.ComboBox GearBox;
         private System.Windows.Forms.ComboBox EingriffBox;
         private System.Windows.Forms.Button moment_button;

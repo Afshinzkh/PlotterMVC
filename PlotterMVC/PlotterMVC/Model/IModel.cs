@@ -11,11 +11,23 @@ using MVCTest.Model;
 
 namespace MVCTest
 {
+    
+    public delegate void allGearsModelHandler<IncModel>(IModel sender, allGearsModelEventArgs e);
     public delegate void gearModelHandler<IModel>(IModel sender, gearModelEventArgs e);
     public delegate void eingriffModelHandler<IModel>(IModel sender, eingriffModelEventArgs e);
     public delegate void matrixModelHandler<IModel>(IModel sender, matrixModelEventArgs e);
     // The ModelEventArgs classes which is derived from th EventArgs class to 
     // be passed on to the controller when the value is changed, same naming as viewEventArgs
+    public class allGearsModelEventArgs : EventArgs
+    {
+        public List<Gear> allGears = new List<Gear>();
+        public allGearsModelEventArgs(List<Gear> g)
+        {
+            allGears = g;
+        }
+    }
+
+
     public class gearModelEventArgs : EventArgs
     {
         public int gearCount;
@@ -60,6 +72,7 @@ namespace MVCTest
     // fired when a value is changed in the model.
     public interface IModelObserver
     {
+        void allGearsAdded(IModel model, allGearsModelEventArgs e);
         void GearsCounted(IModel model, gearModelEventArgs e);
         void EingriffsCounted(IModel model, eingriffModelEventArgs e);
         void ysisoAddtoList(IModel model, matrixModelEventArgs e);
@@ -90,6 +103,7 @@ namespace MVCTest
 
     public class IncModel : IModel
     {
+        public event allGearsModelHandler<IncModel> allGearsRead;
         public event gearModelHandler<IncModel> gearChanged;
         public event eingriffModelHandler<IncModel> eingriffChanged;
         public event matrixModelHandler<IncModel> momentAdded;
@@ -107,6 +121,7 @@ namespace MVCTest
         // notified when a value is changed
         public void attach(IModelObserver imo)
         {
+            allGearsRead += new allGearsModelHandler<IncModel>(imo.allGearsAdded);
             gearChanged += new gearModelHandler<IncModel>(imo.GearsCounted);
             eingriffChanged += new eingriffModelHandler<IncModel>(imo.EingriffsCounted);
             momentAdded += new matrixModelHandler<IncModel>(imo.momentAddtoList);
@@ -133,6 +148,7 @@ namespace MVCTest
 
             //this command gives the number of gears and sends it to view to add them on the droplist
             gearChanged.Invoke(this, new gearModelEventArgs(gears.Count, gears[0].Attributes[1].Width));
+            allGearsRead.Invoke(this, new allGearsModelEventArgs(gears));
             	
 
         }

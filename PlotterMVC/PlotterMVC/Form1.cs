@@ -11,6 +11,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 using MVCTest.View;
 using MVCTest.Properties;
 using AwokeKnowing.GnuplotCSharp;
+using MVCTest.Model;
 
 namespace MVCTest
 {
@@ -25,12 +26,15 @@ namespace MVCTest
 
         IController controller;
 
+        List<Gear> gears = new List<Gear>();
 
-        
+
         public int[] lastIndex = new int[] {0,0};
         public double gearWidth;
         public int lastButtonClick = 0;
         public bool Graph2DButtonClick = false;
+        public bool Graph3DButtonClick = false;
+        public string thePath;
 
         public event gearViewHandler<IView> opened;
         public event gearViewHandler<IView> gearSelected;
@@ -53,6 +57,10 @@ namespace MVCTest
         }
 
 
+        public void allGearsAdded(IModel m, allGearsModelEventArgs e)
+        {
+            gears = e.allGears;
+        }
 
         public void GearsCounted(IModel m, gearModelEventArgs e)
         {
@@ -413,58 +421,88 @@ namespace MVCTest
 
         private void gearItem_Change(object sender, EventArgs e)
         {
-            
-            int gearNumber = GearBox.SelectedIndex;
-            EingriffBox.Items.Clear();
-            EingriffBox.Items.Insert(0, "Select Eingriff");
-            EingriffBox.SelectedIndex = 0;
-            if (gearNumber != 0)
+            if (Graph2DButtonClick)
             {
-                switch (lastButtonClick)
+                int gearNumber = GearBox.SelectedIndex;
+                EingriffBox.Items.Clear();
+                EingriffBox.Items.Insert(0, "Select Eingriff");
+                EingriffBox.SelectedIndex = 0;
+                if (gearNumber != 0)
                 {
-                    case 4:
-                        ysiso_button_clicked.Invoke(this, new gearViewEventArgs(gearNumber));
-                        break;
-                    case 5:
-                        ysidiniso_button_clicked.Invoke(this, new gearViewEventArgs(gearNumber));
-                        break;
+                    switch (lastButtonClick)
+                    {
+                        case 4:
+                            ysiso_button_clicked.Invoke(this, new gearViewEventArgs(gearNumber));
+                            break;
+                        case 5:
+                            ysidiniso_button_clicked.Invoke(this, new gearViewEventArgs(gearNumber));
+                            break;
+                    }
+                    EingriffBox.Visible = true;
+                    ysiso_button.Visible = true;
+                    ysidiniso_button.Visible = true;
+                    gearSelected.Invoke(this, new gearViewEventArgs(gearNumber));
                 }
-                        EingriffBox.Visible = true;
-                ysiso_button.Visible = true;
-                ysidiniso_button.Visible = true;
-                gearSelected.Invoke(this, new gearViewEventArgs(gearNumber));
             }
-       
+
+            else if(Graph3DButtonClick)
+            {
+                int gearNumber = GearBox.SelectedIndex;
+                EingriffBox.Items.Clear();
+                EingriffBox.Items.Insert(0, "Select Eingriff");
+                EingriffBox.SelectedIndex = 0;
+                if (gearNumber != 0)
+                {
+                    int eingriffCount = gears[gearNumber - 1].SubGears.Count;
+                    for (int i = 1; i <= eingriffCount; i++)
+                    {
+                        EingriffBox.Items.Add("Eingriff " + i);
+                    }
+                    EingriffBox.Visible = true;
+                }
+                
+            }
         }
 
         private void eingriffItem_Change(object sender, EventArgs e)
         {
             int gearNumber = GearBox.SelectedIndex;
             int eingriffNumber = EingriffBox.SelectedIndex;
-            
-            if (eingriffNumber!=0)
+            if (Graph2DButtonClick)
             {
-                switch(lastButtonClick)
+
+                if (eingriffNumber != 0)
                 {
-                    case 1:
-                        moment_button_clicked.Invoke(this, new eingriffViewEventArgs(eingriffNumber, gearNumber));
-                        break;
-                    case 2:
-                        force_button_clicked.Invoke(this, new eingriffViewEventArgs(eingriffNumber, gearNumber));
-                        break;
-                    case 3:
-                        stress_button_clicked.Invoke(this, new eingriffViewEventArgs(eingriffNumber, gearNumber));
-                        break;
-                    case 6:
-                        extra_button_clicked.Invoke(this, new eingriffViewEventArgs(eingriffNumber, gearNumber));
-                        break;
+                    switch (lastButtonClick)
+                    {
+                        case 1:
+                            moment_button_clicked.Invoke(this, new eingriffViewEventArgs(eingriffNumber, gearNumber));
+                            break;
+                        case 2:
+                            force_button_clicked.Invoke(this, new eingriffViewEventArgs(eingriffNumber, gearNumber));
+                            break;
+                        case 3:
+                            stress_button_clicked.Invoke(this, new eingriffViewEventArgs(eingriffNumber, gearNumber));
+                            break;
+                        case 6:
+                            extra_button_clicked.Invoke(this, new eingriffViewEventArgs(eingriffNumber, gearNumber));
+                            break;
 
+                    }
+
+                    moment_button.Visible = true;
+                    force_button.Visible = true;
+                    stress_button.Visible = true;
+                    extra_button.Visible = true;
                 }
+            }
 
-                moment_button.Visible = true;
-                force_button.Visible = true;
-                stress_button.Visible = true;
-                extra_button.Visible = true;
+            if(Graph3DButtonClick)
+            {
+                if (eingriffNumber != 0)
+                {
+                    MessageBox.Show("To be Completed...");
+                }
             }
         }
 
@@ -478,19 +516,22 @@ namespace MVCTest
             OpenFileDialog theDialog = new OpenFileDialog();
             theDialog.Title = "Open Text File";
             theDialog.Filter = "XML files|*.xml";
-            //theDialog.InitialDirectory = openFilePath;
-            //String path = "C:\\";
             
             theDialog.RestoreDirectory = false;
             if (theDialog.ShowDialog() == DialogResult.OK)
             {
                 
                 Graph_2D.Enabled = true;
+                Graph_3D.Enabled = true;
+                
                 toolStripStatusLabel1.Text = "Choose your graph from Draw toolbar!";
-                opened(this, new gearViewEventArgs(theDialog.FileName.ToString()));
-                //  openFilePath = theDialog.FileName.ToString();
-                if (Graph2DButtonClick )
+
+                thePath = theDialog.FileName.ToString();
+                //  run the click if it has been selected once before
+                if (Graph2DButtonClick)
                     Graph_2D_Click(this, e);
+                else if (Graph3DButtonClick)
+                    Graph_3D_Click(this, e);
 
             }
         } // End of openToolStrip
@@ -509,6 +550,9 @@ namespace MVCTest
         private void Graph_2D_Click(object sender, EventArgs e)
         {
             Graph2DButtonClick = true;
+            Graph3DButtonClick = false;
+            clearItems();
+            opened(this, new gearViewEventArgs(thePath));
             toolStripStatusLabel1.Text = "Ready!";
             GearBox.Visible = true;
             GearBox.Items.Insert(0,  "Select Gear");
@@ -564,30 +608,7 @@ namespace MVCTest
                     Series_Y_List[i][j] = Convert.ToDouble(listBox1.Items[i * numberOfPoints + j].ToString());
                 }
             }
-
-            //// First fill in the x Series
-            //for (int i = 0; i < numberOfPoints; i++)
-            //{
-            //    Series_X[i] = (startPoint + i) * xwidth;
-            //}
             
-            //// Now the Y Series
-            //for (int i=0; i<numberOfPoints; i++)
-            //{
-            //    Series1_Y[i] = Convert.ToDouble(listBox1.Items[0 * numberOfPoints + i].ToString());
-            //    if (contactLines > 1)
-            //        Series2_Y[i] = Convert.ToDouble(listBox1.Items[1 * numberOfPoints + i].ToString());
-            //    if (contactLines > 2)
-            //        Series3_Y[i] = Convert.ToDouble(listBox1.Items[2 * numberOfPoints + i].ToString());
-            //    if (contactLines > 3)
-            //        Series4_Y[i] = Convert.ToDouble(listBox1.Items[3 * numberOfPoints + i].ToString());
-            //    if (contactLines > 4)
-            //        Series5_Y[i] = Convert.ToDouble(listBox1.Items[4 * numberOfPoints + i].ToString());
-            //    if (contactLines > 5)
-            //        throw new Exception("Contact Lines are more than five the code needs change for GNU Plot");
-            //}
-
-
             GnuPlot.HoldOn();
             GnuPlot.Set("key outside");
 
@@ -616,29 +637,6 @@ namespace MVCTest
                 GnuPlot.setStringValue(TT[i], legendsTitle[i].ToString());
                 GnuPlot.Plot(Series_X, Series_Y_List[i], "title " + TT[i] + " with linespoints");
 
-                //switch(series[i])
-                //{
-                //    case 0:
-                //        GnuPlot.setStringValue("TT1", legendsTitle[i].ToString());
-                //        GnuPlot.Plot(Series_X, Series1_Y, "title TT1 with linespoints");
-                //        break;
-                //    case 1:
-                //        GnuPlot.setStringValue("TT2", legendsTitle[i].ToString());
-                //        GnuPlot.Plot(Series_X, Series2_Y, "title TT2 with linespoints");
-                //        break;
-                //    case 2:
-                //        GnuPlot.setStringValue("TT3", legendsTitle[i].ToString());
-                //        GnuPlot.Plot(Series_X, Series3_Y, "title TT3 with linespoints");
-                //        break;
-                //    case 3:
-                //        GnuPlot.setStringValue("TT4", legendsTitle[i].ToString());
-                //        GnuPlot.Plot(Series_X, Series4_Y, "title TT4 with linespoints");
-                //        break;
-                //    case 4:
-                //        GnuPlot.setStringValue("TT5", legendsTitle[i].ToString());
-                //        GnuPlot.Plot(Series_X, Series5_Y, "title TT5 with linespoints");
-                //        break;
-                //}
             }
                
         }
@@ -763,6 +761,68 @@ namespace MVCTest
             }
         }
 
+        // *************** the 3D part Starts Here ********************//
+
+        private void Graph_3D_Click(object sender, EventArgs e)
+        {
+            Graph3DButtonClick = true;
+            Graph2DButtonClick = false;
+
+            clearItems();
+            
+
+            // Count the gears and add them to the gear box
+            for (int i = 1; i <= gears.Count; i++)
+            {
+                GearBox.Items.Add("Gear " + i);
+            }
+
+            GearBox.Visible = true;
+            GearBox.Items.Insert(0, "Select Gear");
+            GearBox.SelectedIndex = 0;
+
+        }
+
+        public void clearItems()
+        {
+            foreach (var control in this.Controls)
+            {
+                if (control is Button)
+                {
+                    Button c = (Button)control;
+                    c.Visible = false;
+                }
+
+                if (control is ListBox)
+                {
+                    ListBox c = (ListBox)control;
+                    c.Visible = false;
+                    //c.DataSource = null;
+                    //c.Items.Clear();
+                    
+                }
+
+                if (control is CheckedListBox)
+                {
+                    CheckedListBox c = (CheckedListBox)control;
+                    c.Visible = false;
+                    c.Items.Clear();
+                }
+
+                if (control is ComboBox)
+                {
+                    ComboBox c = (ComboBox)control;
+                    c.Visible = false;
+                    c.Items.Clear();
+                }
+
+                if (control is Chart)
+                {
+                    Chart c = (Chart)control;
+                    c.Visible = false;
+                }
+            }
+        }// ClearItems
 
     }
     
